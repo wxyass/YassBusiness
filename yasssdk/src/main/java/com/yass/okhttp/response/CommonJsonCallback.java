@@ -6,7 +6,6 @@ import android.os.Looper;
 import com.yass.okhttp.exception.OkHttpException;
 import com.yass.okhttp.listener.DisposeDataHandle;
 import com.yass.okhttp.listener.DisposeDataListener;
-import com.yass.okhttp.listener.DisposeHandleCookieListener;
 import com.yass.util.ResponseEntityToModule;
 
 import org.json.JSONObject;
@@ -26,7 +25,7 @@ import okhttp3.Response;
 public class CommonJsonCallback implements Callback {
 
     /**
-     * the logic layer exception, may alter in different app
+     * 与服务器返回的字段的一个对应关系
      */
     protected final String RESULT_CODE = "ecode"; // 有返回则对于http请求来说是成功的，但还有可能是业务逻辑上的错误
     protected final int RESULT_CODE_VALUE = 0;
@@ -37,7 +36,7 @@ public class CommonJsonCallback implements Callback {
     // set-cookie2
 
     /**
-     * the java layer exception, do not same to the logic error
+     * t自定义异常类型
      */
     protected final int NETWORK_ERROR = -1; // the network relative error
     protected final int JSON_ERROR = -2; // the JSON relative error
@@ -46,7 +45,7 @@ public class CommonJsonCallback implements Callback {
     /**
      * 将其它线程的数据转发到UI线程
      */
-    private Handler mDeliveryHandler;
+    private Handler mDeliveryHandler;// 进行消息的转发
     private DisposeDataListener mListener;
     private Class<?> mClass;
 
@@ -71,20 +70,26 @@ public class CommonJsonCallback implements Callback {
 
     @Override
     public void onResponse(final Call call, final Response response) throws IOException {
-        final String result = response.body().string();
+        /*final String result = response.body().string();
         final ArrayList<String> cookieLists = handleCookie(response.headers());
         mDeliveryHandler.post(new Runnable() {
             @Override
             public void run() {
                 handleResponse(result);
-                /**
-                 * handle the cookie
-                 */
+                // handle the cookie
                 if (mListener instanceof DisposeHandleCookieListener) {
                     ((DisposeHandleCookieListener) mListener).onCookie(cookieLists);
                 }
             }
+        });*/
+        final String result = response.body().string();
+        mDeliveryHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                handleResponse(result);
+            }
         });
+
     }
 
     private ArrayList<String> handleCookie(Headers headers) {
@@ -97,7 +102,13 @@ public class CommonJsonCallback implements Callback {
         return tempList;
     }
 
+    /**
+     * 处理服务器返回的响应数据
+     *
+     * @param responseObj
+     */
     private void handleResponse(Object responseObj) {
+        // 为了保证代码的健壮性 非空判断
         if (responseObj == null || responseObj.toString().trim().equals("")) {
             mListener.onFailure(new OkHttpException(NETWORK_ERROR, EMPTY_MSG));
             return;
@@ -109,21 +120,26 @@ public class CommonJsonCallback implements Callback {
              */
             JSONObject result = new JSONObject(responseObj.toString());
             if (result.has(RESULT_CODE)) {
+                // 从json对象中取出我们的响应码,若为0,则是正确响应
                 if (result.optInt(RESULT_CODE) == RESULT_CODE_VALUE) {
+                    // 不需要解析,直接返回数据到应用层
                     if (mClass == null) {
                         mListener.onSuccess(result);
                     } else {
+                        // 即,需要我们将json对象转化成实体对象
                         Object obj = ResponseEntityToModule.parseJsonObjectToModule(result, mClass);
+                        // 表明正确的转为了实体对象
                         if (obj != null) {
                             mListener.onSuccess(obj);
                         } else {
+                            // 返回的不是合法的json JSON_ERROR
                             mListener.onFailure(new OkHttpException(JSON_ERROR, EMPTY_MSG));
                         }
                     }
                 } else {
                     if (result.has(ERROR_MSG)) {
                         mListener.onFailure(
-                            new OkHttpException(result.optInt(RESULT_CODE), result.optString(ERROR_MSG)));
+                                new OkHttpException(result.optInt(RESULT_CODE), result.optString(ERROR_MSG)));
                     } else {
                         mListener.onFailure(new OkHttpException(result.optInt(RESULT_CODE), EMPTY_MSG));
                     }
