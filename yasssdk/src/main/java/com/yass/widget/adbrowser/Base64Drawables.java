@@ -1,4 +1,4 @@
-package com.yass.weiget.adbrowser;
+package com.yass.widget.adbrowser;
 
 public class Base64Drawables {
 

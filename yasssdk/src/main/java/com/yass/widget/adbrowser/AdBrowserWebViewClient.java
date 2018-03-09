@@ -1,4 +1,4 @@
-package com.yass.weiget.adbrowser;
+package com.yass.widget.adbrowser;
 
 import android.content.Context;
 import android.content.Intent;

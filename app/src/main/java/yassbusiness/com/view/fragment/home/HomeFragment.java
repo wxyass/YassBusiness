@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import okhttp3.internal.Platform;
 import yassbusiness.com.R;
+import yassbusiness.com.adapter.AdAdapter;
 import yassbusiness.com.module.recommand.BaseRecommandModel;
 import yassbusiness.com.network.http.RequestCenter;
 import yassbusiness.com.view.fragment.BaseFragment;
@@ -43,7 +44,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
      * data
      */
     private ArrayList<String> mData;
-    //private AdAdapter mAdapter;
+    private AdAdapter mAdapter;
     private BaseRecommandModel mRecommandData;
 
     public HomeFragment() {
@@ -102,7 +103,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         if (mRecommandData.data.list != null && mRecommandData.data.list.size() > 0) {
             mLoadingView.setVisibility(View.GONE);
             mListView.setVisibility(View.VISIBLE);
-            /*mAdapter = new AdAdapter(mContext, mRecommandData.data.list);
+            mAdapter = new AdAdapter(mContext, mRecommandData.data.list);
             mListView.setAdapter(mAdapter);
             mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
                 @Override
@@ -114,7 +115,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                 public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                     mAdapter.updateAdInScrollView();
                 }
-            });*/
+            });
             Toast.makeText(mContext,"请求成功",Toast.LENGTH_SHORT).show();
         } else {
             showErrorView();

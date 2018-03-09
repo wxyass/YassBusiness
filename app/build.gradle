@@ -30,4 +30,10 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':yasssdk')
     compile project(':yasszxing')
+
+    // 格式化json
+    compile 'com.google.code.gson:gson:2.8.2'
+
+    // 圆形头像
+    compile 'de.hdodenhof:circleimageview:2.1.0'
 }

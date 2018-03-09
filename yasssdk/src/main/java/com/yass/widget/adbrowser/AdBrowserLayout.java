@@ -1,4 +1,4 @@
-package com.yass.weiget.adbrowser;
+package com.yass.widget.adbrowser;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

@@ -18,10 +18,10 @@ import android.widget.Button;
 
 import com.yass.util.LogUtils;
 import com.yass.util.Utils;
-import com.yass.weiget.adbrowser.AdBrowserLayout;
-import com.yass.weiget.adbrowser.AdBrowserWebViewClient;
-import com.yass.weiget.adbrowser.Base64Drawables;
-import com.yass.weiget.adbrowser.BrowserWebView;
+import com.yass.widget.adbrowser.AdBrowserLayout;
+import com.yass.widget.adbrowser.AdBrowserWebViewClient;
+import com.yass.widget.adbrowser.Base64Drawables;
+import com.yass.widget.adbrowser.BrowserWebView;
 
 
 /**
