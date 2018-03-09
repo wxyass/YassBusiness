@@ -1,1 +1,1 @@
-include ':app', ':yasssdk'
+include ':app', ':yasssdk', ':yasszxing'
