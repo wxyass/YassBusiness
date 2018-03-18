@@ -34,7 +34,7 @@ public class AdAdapter extends BaseAdapter {
      * Common
      */
     private static final int CARD_COUNT = 3;
-    private static final int VIDOE_TYPE = 0x00;
+    private static final int VIDOE_TYPE = 0x00;// 视频类型条目
     private static final int CARD_TYPE_ONE = 0x01;
     private static final int CARD_TYPE_TWO = 0x02;
 
