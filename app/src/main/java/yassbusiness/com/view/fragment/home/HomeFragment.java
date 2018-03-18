@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +19,9 @@ import com.yasszxing.zxing.app.CaptureActivity;
 
 import java.util.ArrayList;
 
-import okhttp3.internal.Platform;
 import yassbusiness.com.R;
 import yassbusiness.com.adapter.AdAdapter;
+import yassbusiness.com.constant.Constant;
 import yassbusiness.com.module.recommand.BaseRecommandModel;
 import yassbusiness.com.network.http.RequestCenter;
 import yassbusiness.com.view.fragment.BaseFragment;
@@ -130,12 +129,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.qrcode_view:
-                /*if (hasPermission(Constant.HARDWEAR_CAMERA_PERMISSION)) {
+                if (hasPermission(Constant.HARDWEAR_CAMERA_PERMISSION)) {
                     doOpenCamera();
                 } else {
                     requestPermission(Constant.HARDWEAR_CAMERA_CODE, Constant.HARDWEAR_CAMERA_PERMISSION);
-                }*/
-                doOpenCamera();
+                }
                 break;
             case R.id.category_view:
 

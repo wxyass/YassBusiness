@@ -1,0 +1,29 @@
+package yassbusiness.com.constant;
+
+import android.Manifest;
+import android.os.Environment;
+
+/**
+ * @author: vision
+ * @function:
+ * @date: 16/6/16
+ */
+public class Constant {
+
+    /**
+     * 权限常量相关
+     */
+    public static final int WRITE_READ_EXTERNAL_CODE = 0x01;// 读写内存卡权限请求码
+    public static final int HARDWEAR_CAMERA_CODE = 0x02;// 相机权限请求码
+
+    // 读写内存卡权限
+    public static final String[] WRITE_READ_EXTERNAL_PERMISSION = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE};
+
+    // 相机权限
+    public static final String[] HARDWEAR_CAMERA_PERMISSION = new String[]{Manifest.permission.CAMERA};
+
+    //整个应用文件下载保存路径
+    public static String APP_PHOTO_DIR = Environment.
+            getExternalStorageDirectory().getAbsolutePath().
+            concat("/imooc_business/photo/");
+}
