@@ -15,17 +15,6 @@ public class BaseFragment extends Fragment {
 
     protected Activity mContext;
 
-
-    /**
-     * 申请指定的权限.
-     */
-    public void requestPermission(int code, String... permissions) {
-
-        if (Build.VERSION.SDK_INT >= 23) {
-            requestPermissions(permissions, code);
-        }
-    }
-
     /**
      * 判断是否有指定的权限
      */
@@ -39,6 +28,18 @@ public class BaseFragment extends Fragment {
         }
         return true;
     }
+
+    /**
+     * 申请指定的权限.
+     */
+    public void requestPermission(int code, String... permissions) {
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            requestPermissions(permissions, code);
+        }
+    }
+
+    // 定义几个常量
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -63,6 +64,7 @@ public class BaseFragment extends Fragment {
 
     }
 
+    // 读写SD卡业务逻辑,由具体的子类实现
     public void doWriteSDCard() {
 
     }

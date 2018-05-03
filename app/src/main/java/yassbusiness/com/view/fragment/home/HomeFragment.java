@@ -130,8 +130,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         switch (v.getId()) {
             case R.id.qrcode_view:
                 if (hasPermission(Constant.HARDWEAR_CAMERA_PERMISSION)) {
-                    doOpenCamera();
+                    // 拥有了此权限,那么直接执行业务逻辑
+                    toOpenCamera();
                 } else {
+                    // 还没有对一个权限(请求码,权限数组)这两个参数都事先定义好
                     requestPermission(Constant.HARDWEAR_CAMERA_CODE, Constant.HARDWEAR_CAMERA_PERMISSION);
                 }
                 break;
@@ -146,6 +148,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
 
     @Override
     public void doOpenCamera() {
+        toOpenCamera();
+    }
+
+    // 打开相机
+    private void toOpenCamera(){
         Intent intent = new Intent(mContext, CaptureActivity.class);
         startActivityForResult(intent, REQUEST_QRCODE);
     }
